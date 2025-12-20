@@ -29,4 +29,12 @@ export default defineConfig(async () => ({
       ignored: ["**/src-tauri/**"],
     },
   },
+
+  // Resolve aliases so imports like `@/components/...` work (matches `tsconfig.json` paths)
+  resolve: {
+    alias: {
+      // @ts-expect-error process is a nodejs global
+      "@": process.cwd() + "/src",
+    },
+  },
 }));
