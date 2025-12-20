@@ -1,3 +1,3 @@
-pub mod vault_service;
-pub mod types;
 pub mod errors;
+pub mod types;
+pub mod vault_service;

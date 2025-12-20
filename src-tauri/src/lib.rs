@@ -1,8 +1,8 @@
 mod vault;
 
+use crate::vault::vault_service::VaultService;
 use tauri::Manager;
 use tauri::State;
-use crate::vault::vault_service::VaultService;
 
 struct AppState {
     vault: VaultService,
@@ -10,12 +10,16 @@ struct AppState {
 
 #[tauri::command]
 fn create_vault(state: State<AppState>, path: String) -> Result<(), String> {
-    state.vault.create_vault(path).map_err(|err| err.to_string())
+    state
+        .vault
+        .create_vault(path)
+        .map_err(|err| err.to_string())
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_opener::init())
         .setup(|app| {
             let app_version = app.package_info().version.to_string();

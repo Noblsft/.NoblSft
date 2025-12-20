@@ -25,6 +25,7 @@ serde_json = "1"
 thiserror = "1"
 zip = "2"
 time = { version = "0.3", features = ["serde", "formatting"] }
+tauri-plugin-dialog = "2"
 
 [profile.dev]
 incremental = true

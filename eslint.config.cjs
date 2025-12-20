@@ -9,7 +9,7 @@ module.exports = [
   {
     ignores: [
       'dist/**',
-      '' + 'build/**',
+      'build/**',
       'coverage/**',
       'node_modules/**',
       'src-tauri/**',

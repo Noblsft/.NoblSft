@@ -25,7 +25,10 @@ impl VaultService {
     ///
     /// Returns: a configured `VaultService` instance.
     pub fn new(app_version: String, schema_version: u32) -> Self {
-        Self { app_version, schema_version }
+        Self {
+            app_version,
+            schema_version,
+        }
     }
 
     /// Create an empty vault file at the given `target` path.
