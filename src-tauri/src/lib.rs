@@ -9,7 +9,7 @@ struct AppState {
 }
 
 #[tauri::command]
-fn vault_create(state: State<AppState>, path: String) -> Result<(), String> {
+fn create_vault(state: State<AppState>, path: String) -> Result<(), String> {
     state.vault.create_vault(path).map_err(|err| err.to_string())
 }
 
@@ -26,7 +26,7 @@ pub fn run() {
 
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![vault_create])
+        .invoke_handler(tauri::generate_handler![create_vault])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
