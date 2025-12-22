@@ -1,14 +1,12 @@
 import { VStack, Button, Image } from '@chakra-ui/react';
 import { save, open } from '@tauri-apps/plugin-dialog';
-import VaultService from '@/services/VaultService';
 import logo from '@/assets/logo.png';
+import { useServices } from '@/hooks/useServices.tsx';
 
 export default function Start() {
-  const vaultService = new VaultService();
+  const { vaultService } = useServices();
 
   const createNewVault = async () => {
-    console.log('Creating vault service...');
-
     const path = await save({
       defaultPath: 'project.nobl',
       filters: [{ name: 'Nobl vault', extensions: ['nobl'] }],
