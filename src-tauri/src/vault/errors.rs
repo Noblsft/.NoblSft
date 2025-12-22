@@ -13,4 +13,7 @@ pub enum VaultError {
 
     #[error("Invalid path: {0}")]
     InvalidPath(String),
+
+    #[error("Invalid vault format: {0}")]
+    InvalidFormat(String),
 }

@@ -1,5 +1,6 @@
 use crate::vault::errors::VaultError;
-use crate::vault::types::Manifest;
+use crate::vault::types::{ Manifest, VaultHandle };
+use crate::helpers::zip::extract_zip;
 
 use std::fs::{self, File};
 use std::io::Write;
@@ -10,24 +11,30 @@ use zip::write::FileOptions;
 pub struct VaultService {
     app_version: String,
     schema_version: u32,
+    workspaces_root: PathBuf,
 }
 
 impl VaultService {
     /// Create a new `VaultService`.
     ///
-    /// `app_version` and `schema_version` are recorded in the vault's
-    /// `manifest.json` when a vault is created. This type is a lightweight
-    /// factory that encapsulates those values for use by `create_vault`.
+    /// This constructs a lightweight factory that holds configuration used when
+    /// creating and loading vaults. The `app_version` and `schema_version` are
+    /// recorded in a vault's `manifest.json` when a vault is created. The
+    /// `workspace_root` is the base directory used for extracted workspaces when
+    /// loading a vault.
     ///
     /// Parameters:
     /// - `app_version`: human-readable application version to embed in the manifest.
     /// - `schema_version`: numeric schema version to embed in the manifest.
+    /// - `workspace_root`: base path where temporary workspaces are created.
     ///
-    /// Returns: a configured `VaultService` instance.
-    pub fn new(app_version: String, schema_version: u32) -> Self {
+    /// Returns:
+    /// A configured `VaultService` instance.
+    pub fn new(app_version: String, schema_version: u32, workspaces_root: PathBuf) -> Self {
         Self {
             app_version,
             schema_version,
+            workspaces_root,
         }
     }
 
@@ -87,6 +94,52 @@ impl VaultService {
         atomic_replace(&tmp, &target)?;
         Ok(())
     }
+
+    /// Load a vault from `vault_path` into a newly created workspace under `self.workspaces_root`.
+    ///
+    /// The function will:
+    /// - Verify that `vault_path` exists (returns `VaultError::InvalidPath` if not).
+    /// - Ensure `self.workspaces_root` and the per-vault workspace directory exist.
+    /// - Extract the ZIP archive at `vault_path` into the workspace via `extract_zip`.
+    /// - Verify the presence of `manifest.json` in the workspace (returns
+    ///   `VaultError::InvalidFormat` if missing).
+    /// - Ensure the `user-files` directory exists (it will be created if absent).
+    ///
+    /// Returns a `VaultHandle` that points at the original `vault_path` and the
+    /// extracted workspace on success. Other IO / ZIP / serialization failures are
+    /// propagated as `VaultError`.
+    pub fn load_vault(&self, vault_path: impl AsRef<Path>) -> Result<VaultHandle, VaultError> {
+        let vault_path = vault_path.as_ref();
+
+        if !vault_path.exists() {
+            return Err(VaultError::InvalidPath("vault file does not exist".into()));
+        }
+
+        fs::create_dir_all(&self.workspaces_root)?;
+
+        let workspace_id = unique_workspace_id();
+        let workspace = self.workspaces_root.join(workspace_id);
+        fs::create_dir_all(&workspace)?;
+
+        extract_zip(vault_path, &workspace)?;
+
+        let manifest = workspace.join("manifest.json");
+        let user_files_dir = workspace.join("user-files");
+
+        if !manifest.exists() {
+            return Err(VaultError::InvalidFormat("missing manifest.json".into()));
+        }
+        if !user_files_dir.exists() {
+            fs::create_dir_all(&user_files_dir)?;
+        }
+
+        Ok(VaultHandle {
+            source: vault_path.to_path_buf(),
+            workspace,
+            manifest,
+            objects_dir: user_files_dir,
+        })
+    }
 }
 
 fn temp_path_next_to(path: &Path) -> Result<PathBuf, VaultError> {
@@ -104,4 +157,13 @@ fn atomic_replace(tmp: &Path, target: &Path) -> Result<(), VaultError> {
     }
     fs::rename(tmp, target)?;
     Ok(())
+}
+
+fn unique_workspace_id() -> String {
+    use std::time::{SystemTime, UNIX_EPOCH};
+    let ts = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap_or_default()
+        .as_millis();
+    format!("vault-{}", ts)
 }

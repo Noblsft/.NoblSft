@@ -1,5 +1,14 @@
 use serde::{Deserialize, Serialize};
 use time::OffsetDateTime;
+use std::path::PathBuf;
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct VaultHandle {
+    pub source: PathBuf,
+    pub workspace: PathBuf,
+    pub manifest: PathBuf,
+    pub objects_dir: PathBuf,
+}
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Manifest {
