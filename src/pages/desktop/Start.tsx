@@ -1,5 +1,5 @@
 import { VStack, Button, Image } from '@chakra-ui/react';
-import { save } from '@tauri-apps/plugin-dialog';
+import { save, open } from '@tauri-apps/plugin-dialog';
 import VaultService from '@/services/VaultService';
 import logo from '@/assets/logo.png';
 
@@ -19,6 +19,17 @@ export default function Start() {
     await vaultService.createVault(path);
   };
 
+  const loadExistingVault = async () => {
+    const path = await open({
+      defaultPath: 'project.nobl',
+      filters: [{ name: 'Nobl vault', extensions: ['nobl'] }],
+    });
+
+    if (!path) return;
+
+    await vaultService.loadVault(path);
+  };
+
   return (
     <VStack>
       <Image src={logo} alt="logo" aspectRatio={4 / 3} width="350px" />
@@ -32,7 +43,14 @@ export default function Start() {
       >
         Create new nobl file
       </Button>
-      <Button colorScheme="blue" size="lg" width="30%">
+      <Button
+        colorScheme="blue"
+        size="lg"
+        width="30%"
+        onClick={async () => {
+          await loadExistingVault();
+        }}
+      >
         Load existing nobl file
       </Button>
     </VStack>
