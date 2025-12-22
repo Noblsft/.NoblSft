@@ -1,4 +1,4 @@
-name: PR Checks (Lint + Prettier)
+name: PR Checks (Lint + Prettier + Test)
 
 on:
   pull_request:
@@ -41,3 +41,6 @@ jobs:
 
       - name: Prettier check
         run: pnpm run format:check
+
+      - name: Tests
+        run: pnpm run test -- --ci
