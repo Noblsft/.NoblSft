@@ -9,6 +9,7 @@ use tauri::{Manager, State, WindowEvent};
 
 struct AppState {
     vault: VaultService,
+    // TODO: move this to vault service
     opened_vault: Mutex<Option<VaultHandle>>,
 }
 
