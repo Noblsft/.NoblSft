@@ -140,6 +140,34 @@ impl VaultService {
             objects_dir: user_files_dir,
         })
     }
+
+    /// Close an opened vault by removing its extracted workspace directory.
+    ///
+    /// This method will attempt to remove the entire workspace directory
+    /// referenced by `handle.workspace`. As a safety check it first ensures
+    /// the workspace path is located under this service's configured
+    /// `workspaces_root` and will return `VaultError::InvalidPath` if not.
+    ///
+    /// Parameters:
+    /// - `handle`: a reference to a `VaultHandle` previously returned by
+    ///   `load_vault` describing the opened workspace.
+    ///
+    /// Returns: `Ok(())` on success or `Err(VaultError)` for IO or validation errors.
+    pub fn close_vault(&self, handle: &VaultHandle) -> Result<(), VaultError> {
+        let ws = &handle.workspace;
+
+        if !ws.starts_with(&self.workspaces_root) {
+            return Err(VaultError::InvalidPath(
+                "workspace path is outside the configured workspaces root".into(),
+            ));
+        }
+
+        if ws.exists() {
+            fs::remove_dir_all(ws)?;
+        }
+
+        Ok(())
+    }
 }
 
 fn temp_path_next_to(path: &Path) -> Result<PathBuf, VaultError> {
