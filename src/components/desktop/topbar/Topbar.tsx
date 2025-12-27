@@ -1,16 +1,38 @@
+import { getCurrentWindow } from '@tauri-apps/api/window';
 import { Box, Flex, HStack } from '@chakra-ui/react';
 import { useColorModeValue } from '@/components';
 
 export default function Topbar() {
   const borderColor = useColorModeValue('rgba(0,0,0,0.06)', 'rgba(255,255,255,0.04)');
+  const appWindow = getCurrentWindow();
+
+  const onMouseDown = (e: React.MouseEvent) => {
+    if (e.button === 0) {
+      if (e.detail === 2) {
+        appWindow.toggleMaximize();
+      } else {
+        appWindow.startDragging();
+      }
+    }
+  };
 
   return (
-    <Box as="header" position="sticky" top={0} zIndex={50} width="100%">
-      <Box maxW="1400px" mx="auto" px={4} height="40px">
+    <Box
+      onMouseDown={(event) => {
+        onMouseDown(event);
+      }}
+      as="header"
+      position="sticky"
+      top={0}
+      zIndex={50}
+      width="100%"
+    >
+      <Box mx="auto" px={4} height="40px">
         <Flex align="center" height="100%">
           <HStack gap={2} align="center">
             <Box
               as="button"
+              onClick={() => appWindow.close()}
               aria-label="Close"
               width="12px"
               height="12px"
@@ -26,6 +48,7 @@ export default function Topbar() {
 
             <Box
               as="button"
+              onClick={() => appWindow.minimize()}
               aria-label="Minimize"
               width="12px"
               height="12px"
@@ -41,6 +64,7 @@ export default function Topbar() {
 
             <Box
               as="button"
+              onClick={() => appWindow.toggleMaximize()}
               aria-label="Maximize"
               width="12px"
               height="12px"
