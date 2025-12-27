@@ -1,12 +1,13 @@
 import './App.css';
 import Start from './pages/desktop/Start.tsx';
 
-import { Provider } from '@/components/ui/provider';
+import { Topbar, Provider } from '@/components';
 
 function App() {
   return (
     <Provider>
-      <main className="container">
+      <main>
+        <Topbar />
         <Start />
       </main>
     </Provider>
