@@ -6,7 +6,7 @@ import { Topbar, Provider } from '@/components';
 function App() {
   return (
     <Provider>
-      <main>
+      <main className="window-shell">
         <Topbar />
         <Start />
       </main>
