@@ -1,10 +1,10 @@
 // desktop components
-import Topbar from './desktop/topbar/Topbar';
+import Topbar from '@/components/desktop/topbar/Topbar';
 
 // shared components
-export * from './ui/provider';
-export * from './ui/color-mode';
-export * from './ui/tooltip';
-export * from './ui/toaster';
+export * from '@/components/ui/provider';
+export * from '@/components/ui/color-mode';
+export * from '@/components/ui/tooltip';
+export * from '@/components/ui/toaster';
 
 export { Topbar };
