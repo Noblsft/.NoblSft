@@ -1,7 +1,8 @@
 import './App.css';
+import { HashRouter, Routes, Route } from 'react-router-dom';
+
 import { Topbar, Provider } from '@/components';
 import { Start, Home } from '@/pages';
-import { HashRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
   return (

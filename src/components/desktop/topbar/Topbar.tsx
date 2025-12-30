@@ -1,5 +1,6 @@
-import { getCurrentWindow } from '@tauri-apps/api/window';
 import { Box, Flex, HStack } from '@chakra-ui/react';
+import { getCurrentWindow } from '@tauri-apps/api/window';
+
 import { useColorModeValue } from '@/components';
 
 export default function Topbar() {
