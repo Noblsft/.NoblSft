@@ -3,7 +3,7 @@ import { getCurrentWindow } from '@tauri-apps/api/window';
 
 import { useColorModeValue } from '@/components';
 
-export default function Topbar() {
+export function Topbar() {
   const borderColor = useColorModeValue('rgba(0,0,0,0.06)', 'rgba(255,255,255,0.04)');
   const appWindow = getCurrentWindow();
 

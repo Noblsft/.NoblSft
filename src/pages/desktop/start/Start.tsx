@@ -1,8 +1,9 @@
-import { VStack, Button, Image } from '@chakra-ui/react';
+import { VStack, Image } from '@chakra-ui/react';
 import { save, open } from '@tauri-apps/plugin-dialog';
 import { useNavigate } from 'react-router-dom';
 
 import logo from '@/assets/logo.png';
+import { RoundedButton } from '@/components';
 import { useServices } from '@/hooks/useServices.tsx';
 
 export default function Start() {
@@ -34,9 +35,7 @@ export default function Start() {
   return (
     <VStack>
       <Image src={logo} alt="logo" aspectRatio={4 / 3} width="350px" />
-      <Button
-        colorScheme="teal"
-        size="lg"
+      <RoundedButton
         width="30%"
         onClick={async () => {
           await createNewVault();
@@ -44,10 +43,8 @@ export default function Start() {
         }}
       >
         Create new nobl file
-      </Button>
-      <Button
-        colorScheme="blue"
-        size="lg"
+      </RoundedButton>
+      <RoundedButton
         width="30%"
         onClick={async () => {
           await loadExistingVault();
@@ -55,7 +52,7 @@ export default function Start() {
         }}
       >
         Load existing nobl file
-      </Button>
+      </RoundedButton>
     </VStack>
   );
 }
