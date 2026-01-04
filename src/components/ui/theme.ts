@@ -17,17 +17,17 @@ const config = defineConfig({
       colors: {
         neutral: {
           0: { value: '#ffffff' },
-          50: { value: '#f8fafc' },
-          100: { value: '#f1f5f9' },
-          200: { value: '#e2e8f0' },
-          300: { value: '#cbd5e1' },
-          400: { value: '#94a3b8' },
-          500: { value: '#64748b' },
-          600: { value: '#475569' },
-          700: { value: '#334155' },
-          800: { value: '#1f2937' },
-          900: { value: '#0f172a' },
-          950: { value: '#0b1020' },
+          50: { value: '#f7f7f7' },
+          100: { value: '#efefef' },
+          200: { value: '#e0e0e0' },
+          300: { value: '#cfcfcf' },
+          400: { value: '#bfbfbf' },
+          500: { value: '#9f9f9f' },
+          600: { value: '#808080' },
+          700: { value: '#606060' },
+          800: { value: '#404040' },
+          900: { value: '#202020' },
+          950: { value: '#000000' },
         },
 
         brand: {

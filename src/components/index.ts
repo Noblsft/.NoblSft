@@ -1,5 +1,7 @@
 // desktop components
 export * from '@/components/desktop/topbar/Topbar';
+export * from '@/components/desktop/sidebar/Sidebar';
+export * from '@/components/desktop/workspace/Workspace';
 
 // shared components
 export * from '@/components/shared/RoundedButton.tsx';
