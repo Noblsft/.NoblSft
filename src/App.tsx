@@ -1,13 +1,20 @@
 import './App.css';
-import Start from './pages/desktop/Start.tsx';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 
-import { Provider } from '@/components/ui/provider';
+import { Topbar, Provider } from '@/components';
+import { Start, Home } from '@/pages';
 
 function App() {
   return (
     <Provider>
-      <main className="container">
-        <Start />
+      <main className='window-shell'>
+        <Topbar />
+        <HashRouter>
+          <Routes>
+            <Route path='/' element={<Start />} />
+            <Route path='/home' element={<Home />} />
+          </Routes>
+        </HashRouter>
       </main>
     </Provider>
   );

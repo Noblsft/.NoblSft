@@ -1,6 +1,8 @@
 import * as React from 'react';
-import type { Services } from '@/services/types.ts';
+
 import { createServices } from '@/services';
+
+import type { Services } from '@/services/types.ts';
 
 const ServicesContext = React.createContext<Services | null>(null);
 const services: Services = createServices();

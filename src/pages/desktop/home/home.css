@@ -1,0 +1,7 @@
+.home {
+  border-radius: 12px;
+  margin: 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+  height: calc(100% - 55px);
+}

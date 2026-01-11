@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react';
+
 import { ServicesProvider, useServices } from '../../hooks/useServices';
 
 describe('useServices', () => {
@@ -18,7 +19,7 @@ describe('useServices', () => {
   test('returns services when used within ServicesProvider', () => {
     function TestComp() {
       const services = useServices();
-      return <div data-testid="ok">{services.vaultService ? 'ok' : 'no'}</div>;
+      return <div data-testid='ok'>{services.vaultService ? 'ok' : 'no'}</div>;
     }
 
     const { getByTestId } = render(
