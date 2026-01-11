@@ -19,6 +19,7 @@ export default function Start() {
     if (!path) return;
 
     await vaultService.createVault(path);
+    navigate('/home');
   };
 
   const loadExistingVault = async () => {
@@ -30,25 +31,24 @@ export default function Start() {
     if (!path) return;
 
     await vaultService.loadVault(path);
+    navigate('/home');
   };
 
   return (
     <VStack>
-      <Image src={logo} alt="logo" aspectRatio={4 / 3} width="350px" />
+      <Image src={logo} alt='logo' aspectRatio={4 / 3} width='350px' />
       <RoundedButton
-        width="30%"
+        width='30%'
         onClick={async () => {
           await createNewVault();
-          navigate('/home');
         }}
       >
         Create new nobl file
       </RoundedButton>
       <RoundedButton
-        width="30%"
+        width='30%'
         onClick={async () => {
           await loadExistingVault();
-          navigate('/home');
         }}
       >
         Load existing nobl file

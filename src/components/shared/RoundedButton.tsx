@@ -7,7 +7,7 @@ type RoundedButtonProps = {
 
 export function RoundedButton({ children, width, onClick }: RoundedButtonProps) {
   return (
-    <Button onClick={onClick} width={width} rounded="10px" variant="surface">
+    <Button onClick={onClick} width={width} rounded='10px' variant='surface'>
       {children}
     </Button>
   );

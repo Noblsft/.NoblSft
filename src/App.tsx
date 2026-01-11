@@ -7,12 +7,12 @@ import { Start, Home } from '@/pages';
 function App() {
   return (
     <Provider>
-      <main className="window-shell">
+      <main className='window-shell'>
         <Topbar />
         <HashRouter>
           <Routes>
-            <Route path="/" element={<Start />} />
-            <Route path="/home" element={<Home />} />
+            <Route path='/' element={<Start />} />
+            <Route path='/home' element={<Home />} />
           </Routes>
         </HashRouter>
       </main>

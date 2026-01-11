@@ -22,59 +22,59 @@ export function Topbar() {
       onMouseDown={(event) => {
         onMouseDown(event);
       }}
-      as="header"
-      position="sticky"
+      as='header'
+      position='sticky'
       top={0}
       zIndex={50}
-      width="100%"
+      width='100%'
     >
-      <Box mx={1} px={4} height="35px">
-        <Flex align="center" height="100%">
-          <HStack gap={2} align="center">
+      <Box mx={1} px={4} height='35px'>
+        <Flex align='center' height='100%'>
+          <HStack gap={2} align='center'>
             <Box
-              as="button"
+              as='button'
               onClick={() => appWindow.close()}
-              aria-label="Close"
-              width="12px"
-              height="12px"
-              minW="12px"
+              aria-label='Close'
+              width='12px'
+              height='12px'
+              minW='12px'
               p={0}
-              borderRadius="full"
-              bg="#ff605c"
+              borderRadius='full'
+              bg='#ff605c'
               border={`1px solid ${borderColor}`}
-              cursor="pointer"
+              cursor='pointer'
               _hover={{ filter: 'brightness(1.05)' }}
               _focus={{ boxShadow: 'outline' }}
             />
 
             <Box
-              as="button"
+              as='button'
               onClick={() => appWindow.minimize()}
-              aria-label="Minimize"
-              width="12px"
-              height="12px"
-              minW="12px"
+              aria-label='Minimize'
+              width='12px'
+              height='12px'
+              minW='12px'
               p={0}
-              borderRadius="full"
-              bg="#ffbf2e"
+              borderRadius='full'
+              bg='#ffbf2e'
               border={`1px solid ${borderColor}`}
-              cursor="pointer"
+              cursor='pointer'
               _hover={{ filter: 'brightness(1.05)' }}
               _focus={{ boxShadow: 'outline' }}
             />
 
             <Box
-              as="button"
+              as='button'
               onClick={() => appWindow.toggleMaximize()}
-              aria-label="Maximize"
-              width="12px"
-              height="12px"
-              minW="12px"
+              aria-label='Maximize'
+              width='12px'
+              height='12px'
+              minW='12px'
               p={0}
-              borderRadius="full"
-              bg="#2fd55a"
+              borderRadius='full'
+              bg='#2fd55a'
               border={`1px solid ${borderColor}`}
-              cursor="pointer"
+              cursor='pointer'
               _hover={{ filter: 'brightness(1.05)' }}
               _focus={{ boxShadow: 'outline' }}
             />

@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react';
 
 export function Sidebar() {
-  return <Box>Sidebar Component</Box>;
+  return <Box p={1}>Sidebar</Box>;
 }
