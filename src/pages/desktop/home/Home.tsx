@@ -7,7 +7,10 @@ export default function Home() {
   return (
     <Box className='home' bg='bg.panel' p={2}>
       <Splitter.Root
-        panels={[{ id: 'sidebar' }, { id: 'workspace' }]}
+        panels={[
+          { id: 'sidebar', collapsible: true, collapsedSize: 0, minSize: 10 },
+          { id: 'workspace' },
+        ]}
         defaultSize={[20, 80]}
         height='100%'
       >
